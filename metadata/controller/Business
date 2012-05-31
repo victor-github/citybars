@@ -1,0 +1,226 @@
+{
+    "id": "ExtBox1-ext-gen8982",
+    "type": "controller",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "designer|userClassName": "Business"
+    },
+    "customConfigs": [],
+    "designerId": "fdd37583-25f9-4f91-89e8-7f521275c5a9",
+    "$viewOrder": 0,
+    "expanded": true,
+    "cn": [
+        {
+            "id": "ExtBox1-ext-gen9183",
+            "type": "fixedfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "init",
+                "designer|params": [
+                    "application"
+                ],
+                "implHandler": [
+                    "var me = this;",
+                    "Ext.Viewport.setMasked({ message: 'Loading...' });",
+                    "// get the location...",
+                    "me.getLocation(function (location) {",
+                    "    // then use Yelp to get the businesses",
+                    "    me.getBusinesses(location, function (store) {",
+                    "        // then bind data to list and show it",
+                    "        me.getDataList().setStore(store);",
+                    "        Ext.Viewport.setMasked(false);",
+                    "    });",
+                    "});"
+                ],
+                "designer|userClassName": "init"
+            },
+            "customConfigs": [],
+            "iconCls": "icon-basic-function",
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen9499",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "dataList",
+                "selector": "#dataList",
+                "designer|userClassName": "dataList"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen9683",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "listCard",
+                "selector": "#listCard",
+                "designer|userClassName": "listCard"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen9863",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "mainNav",
+                "selector": "#mainNav",
+                "designer|userClassName": "mainNav"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen10044",
+            "type": "controllerref",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "ref": "detailCard",
+                "selector": "#detailCard",
+                "designer|userClassName": "detailCard"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen10761",
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getLocation",
+                "designer|params": [
+                    "callback"
+                ],
+                "implHandler": [
+                    "if (navigator && navigator.geolocation) {",
+                    "    navigator.geolocation.getCurrentPosition(function(position) {",
+                    "        callback(position);",
+                    "    }, function(error) {",
+                    "        // give a warning for error",
+                    "    });",
+                    "}"
+                ],
+                "designer|userClassName": "getLocation"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen11313",
+            "type": "basicfunction",
+            "reference": {
+                "name": "items",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "getBusinesses",
+                "designer|params": [
+                    "location,callback"
+                ],
+                "implHandler": [
+                    "var store = Ext.data.StoreManager.lookup('BusinessStore'),",
+                    "    yelpKey = 'EEZds_v41Eln00LYeI1Fkw', // enter your yelp key here",
+                    "    url = 'http://api.yelp.com/business_review_search' +",
+                    "    '?ywsid=' + yelpKey +",
+                    "    '&term=Bars' +",
+                    "    '&lat=' + location.coords.latitude +",
+                    "    '&long=' + location.coords.longitude;",
+                    "store.getProxy().setUrl(url);",
+                    "store.load(function() {",
+                    "    callback(store);",
+                    "});"
+                ],
+                "designer|userClassName": "getBusinesses"
+            },
+            "customConfigs": [],
+            "expanded": true
+        },
+        {
+            "id": "ExtBox1-ext-gen12161",
+            "type": "controlleraction",
+            "reference": {
+                "name": "listeners",
+                "type": "array"
+            },
+            "codeClass": null,
+            "userConfig": {
+                "fn": "onListItemTap",
+                "implHandler": [
+                    "var me = this,",
+                    "        map,",
+                    "        lat,",
+                    "        long,",
+                    "        loc,",
+                    "        marker,",
+                    "        info, details;",
+                    "",
+                    "if (record) {",
+                    "",
+                    "    details = Ext.create('MyApp.view.DetailPanel', {",
+                    "        title: 'Details'",
+                    "    });",
+                    "",
+                    "    // set the map",
+                    "    map = details.child('#detailMap');",
+                    "    lat = record.get('latitude');",
+                    "    long = record.get('longitude');",
+                    "",
+                    "    map.setMapOptions({",
+                    "        zoom: 18",
+                    "    });",
+                    "    map.setMapCenter({",
+                    "        latitude: lat,",
+                    "        longitude: long",
+                    "    });",
+                    "",
+                    "    // set the info",
+                    "    info = details.child('#contact').child('#info');",
+                    "    info.child('#photo').setData(record.data);",
+                    "    info.child('#data').setData(record.data);",
+                    "",
+                    "    me.getMainNav().push(details);",
+                    "}"
+                ],
+                "name": "itemtap",
+                "designer|targetType": "Ext.dataview.List",
+                "designer|controlQuery": "list",
+                "designer|userClassName": "onListItemTap"
+            },
+            "customConfigs": [],
+            "expanded": true
+        }
+    ]
+}

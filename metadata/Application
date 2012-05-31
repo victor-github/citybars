@@ -1,0 +1,31 @@
+{
+    "id": "ExtBox1-ext-gen2550",
+    "type": "application",
+    "reference": {
+        "name": "items",
+        "type": "array"
+    },
+    "codeClass": null,
+    "userConfig": {
+        "models": [
+            "Business"
+        ],
+        "stores": [
+            "BusinessStore"
+        ],
+        "views": [
+            "MainNav",
+            "ListContainer",
+            "DetailPanel"
+        ],
+        "name": "MyApp",
+        "controllers": [
+            "Business"
+        ]
+    },
+    "customConfigs": [],
+    "designerId": "application",
+    "$viewOrder": 0,
+    "iconCls": "icon-application",
+    "expanded": true
+}
